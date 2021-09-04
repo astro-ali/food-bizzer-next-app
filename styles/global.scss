@@ -1,17 +1,145 @@
+@import "variables";
+
 *,*::after, *::before {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
   
-  html, body {
+html, body {
+  font-family: 'Poppins', sans-serif;
+  background-color: $milkyBlueWhite;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  font-weight: 200;
+}
+
+.container {
+  width: 1080px;
+  margin: auto;
+}
+
+.navbar {
+  margin-top: 24px;
+  display: flex;
+  // background-color: lightcoral;
+  justify-content: space-between;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.shopping-cart {
+  // background-color: greenyellow;
+  position: relative;
+
+  &-button {
+    margin-top: 10px;
+    border-radius: 50px;
+    background-color: $coffeBrown;
+    border: none;
+    height: 54px;
+    width: 54px;
+
+    &-img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  &-item-counter {
     font-family: 'Poppins', sans-serif;
+    position: absolute;
+    top:-2%;
+    right: -10%;
+    background-color: $brightRed;
+    color: $milkyBlueWhite;
+    width: auto;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    padding: 2px 10px;
+    border-radius: 50px;
+    transition: all .35s ease;
   }
-  
-  a {
-    text-decoration: none;
+}
+
+.hidden {
+  visibility: hidden;
+  transition: all .35s ease;
+}
+
+.restaurant {
+  display: flex;
+  justify-content: space-between;
+  // background-color: burlywood;
+
+  &-info {
+    padding-top: 38px;
+    width: 368px;
+    // background-color: crimson;
   }
-  
+
   h1 {
-    font-weight: 200;
+    font-weight: 700;
+    font-size: 52px;
   }
+
+  p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+}
+
+.categories {
+  margin-top: 42px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category {
+
+  // background-color: lightskyblue;
+
+  &-btn {
+    font-size: 24px;
+    font-weight: 400;
+    color: $milkyBlueWhite;
+    background-color: $coffeBrown;
+    padding: 14px 54px;
+    border-radius: 3px;
+    width: 240px;
+    border: none;
+  }
+}
+
+.clicked {
+  color:  $coffeBrown ;
+  background-color: $milkyBlueWhite;
+  border: 2px solid $coffeBrown;
+}
+
+.meals-info {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+
+  &-name {
+    font-size: 36px;
+    font-weight: 600;
+  }
+
+  &-price {
+    margin-right: 60px;
+    font-size: 26px;
+    font-weight: 400;
+  }
+}
