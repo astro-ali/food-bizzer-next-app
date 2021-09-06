@@ -1,25 +1,40 @@
-import Category from './Category';
-import { items } from "../items";
-import { useStore } from '../store'; 
-import { useEffect } from 'react';
+import Category from "./Category";
+import { items } from "../items";  //fake data
+import { useEffect, useState } from "react";
+import Meals from './Meals';
 
 const Categories = () => {
 
-    const { Items, setItems } = useStore();
+    const [categories, setCategories] = useState(items);
+    const [category, setCategory] = useState(items.foodCategories[0]);
 
-    useEffect( () => {
-        setItems(items);
-    }, []);
+    useEffect(() => {
+        console.log(category);
+    }, [category]);
 
+    const changeCategory = (id) => {
+        setCategory(categories.foodCategories[id]);
+    };
 
-    const categoriesNames = items.foodCategories;
     return (
-        <div className="container categories">
-            {categoriesNames.map((categ) => {
-                return <Category key={categ.categoryId} category={categ} classes="category-btn" />
-            })}
-        </div>
-    )
-}
+        <>
+            <div className="container categories">
+                {!!categories ? (
+                    categories['foodCategories']?.map((categ) => (
+                        <Category
+                        key={categ.categoryId}
+                        category={categ}
+                        changeCategory={changeCategory}
+                        currentCategory={category}
+                        />
+                    ))
+                ) : (
+                    <h3>loading ...</h3>
+                )}
+            </div>
+            <Meals category={category}/>
+        </>
+    );
+};
 
 export default Categories;

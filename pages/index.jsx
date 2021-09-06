@@ -1,6 +1,5 @@
 import Categories from '../components/Categories'
 import Header from '../components/Header'
-import Meals from '../components/Meals'
 
 
 export default function Home() {
@@ -8,7 +7,6 @@ export default function Home() {
     <div>
       <Header />
       <Categories />
-      <Meals />
     </div>
   )
 }

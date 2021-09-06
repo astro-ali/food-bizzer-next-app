@@ -4,7 +4,6 @@ export const items = {
         {
             categoryId: 0,
             categoryName: "Hot drinks",
-            active: true,
             categoryItems: [
                 {
                     itemId: 0,
@@ -66,7 +65,6 @@ export const items = {
         {
             categoryId: 1,
             categoryName: "Cool drinks",
-            active: false,
             categoryItems: [
                 {
                     itemId: 0,
@@ -108,7 +106,6 @@ export const items = {
         {
             categoryId: 2,
             categoryName: "Hot food",
-            active: false,
             categoryItems: [
                 {
                     itemId: 0,
@@ -145,7 +142,6 @@ export const items = {
         {
             categoryId: 3,
             categoryName: "Extras...",
-            active: false,
             categoryItems: [
                 {
                     itemId: 0,
@@ -164,12 +160,12 @@ export const items = {
                 },
                 {
                     itemId: 3,
-                    itemName:"'Mint tea",
+                    itemName:"Mint tea",
                     itemPrice: "500"
                 },
                 {
                     itemId: 4,
-                    itemName:"'Green tea",
+                    itemName:"Green tea",
                     itemPrice: "750"
                 },
                 {

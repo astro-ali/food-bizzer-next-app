@@ -118,17 +118,25 @@ h1 {
     border-radius: 3px;
     width: 240px;
     border: none;
+    transition: all .3s ease-in-out;
+    
+    &:hover {
+      box-shadow: 0 2px 8px 0 rgba(#000, 0.5);
+    }
   }
 }
 
-.clicked {
+.active {
   color:  $coffeBrown ;
   background-color: $milkyBlueWhite;
-  border: 2px solid $coffeBrown;
+  box-shadow: 0 2px 4px 0 rgba(#000, 0.5);
+  // border: 2px solid $coffeBrown;
+  transition: all .3s ease-in-out;
 }
 
 .meals-info {
   margin-top: 40px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
 
@@ -138,8 +146,33 @@ h1 {
   }
 
   &-price {
+    padding-top: 20px;
     margin-right: 60px;
     font-size: 26px;
+    font-weight: 400;
+  }
+}
+
+.food-item {
+  padding: 0 30px;
+  height: 56px;
+  width: inherit;
+  background-color: $coffeBrown;
+  color: $milkyBlueWhite;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: none;
+
+  &-name {
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  &-price {
+    font-size: 22px;
     font-weight: 400;
   }
 }

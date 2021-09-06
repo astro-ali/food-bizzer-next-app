@@ -1,8 +1,12 @@
 import create from "zustand";
+import { devtools } from 'zustand/middleware'
 
-export const useStore = create((set) => ({
-    Items: null,
+const useStore = create(devtools((set) => ({
+    Items: {},
+    category: {},
 
-    setItems: (fetchedItems) => set({ Items: fetchedItems }),
-}));
+    setItems: (item) => set((state) => ({ Items: item })),
+    setCategory: (categor) => set((state) => ({ category: categor })),
+})));
 
+export default useStore;

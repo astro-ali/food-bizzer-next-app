@@ -1,8 +1,15 @@
-const Item = () => {
+
+const Item = ({ item }) => {
+
+    const numberWithCommas = (x) => {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     return (
-        <div>
-            <h1>Hot chocolate</h1>
-        </div>
+        <button className="food-item">
+            <div className="food-item-name">{item.itemName}</div>
+            <div className="food-item-price">{`${numberWithCommas(item.itemPrice)} IQD`}</div>
+        </button>
     )
 }
 
