@@ -1,5 +1,3 @@
-
-
 const Category = ({ category, changeCategory, currentCategory }) => {
 
     const clicked = ` ${(currentCategory.categoryId == category.categoryId) ? "active":""}`
