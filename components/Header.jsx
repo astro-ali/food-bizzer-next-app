@@ -1,30 +1,19 @@
-import { useState } from "react";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Header = () => {
-  const [cartItems, setCartItems] = useState(5);
+
+  const router = useRouter();
 
   return (
     <div className="container header">
       <div className="navbar">
-        <div className="hidden">hello</div>
         <div className="logo">
-          <img src="images/buzzer-logo.svg" alt="Logo" />
+          <img className="logo-img" src="images/buzzer-logo.svg" alt="Logo" />
         </div>
         <div className="shopping-cart">
-          <button className="shopping-cart-button">
-            <img
-              className="shopping-cart-button-img"
-              src="images/shopping-cart-icon.svg"
-              alt="Shpping cart"
-            />
-          </button>
-          <div
-            className={`shopping-cart-item-counter ${
-              cartItems == 0 ? "hidden" : ""
-            }`}
-          >
-            {cartItems > 99 ? "+99" : cartItems}
-          </div>
+          <Link href="/"><a className={`link${router.pathname == "/" ? " link-active":""}`}>Orders</a></Link>
+          <Link href="/menu"><a className={`link${router.pathname == "/menu" ? " link-active":""}`}>Menu</a></Link>
         </div>
       </div>
       <div className="restaurant">

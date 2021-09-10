@@ -93,11 +93,6 @@ export const items = {
                 },
                 {
                     itemId: 5,
-                    itemName: "Mixed Juice",
-                    itemPrice: "4500"
-                },
-                {
-                    itemId: 6,
                     itemName: "Iced Nutella Smoothie",
                     itemPrice: "4500"
                 }

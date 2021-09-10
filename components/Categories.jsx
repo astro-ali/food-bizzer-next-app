@@ -8,10 +8,6 @@ const Categories = () => {
     const [categories, setCategories] = useState(items);
     const [category, setCategory] = useState(items.foodCategories[0]);
 
-    useEffect(() => {
-        console.log(category);
-    }, [category]);
-
     const changeCategory = (id) => {
         setCategory(categories.foodCategories[id]);
     };

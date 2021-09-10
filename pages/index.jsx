@@ -1,12 +1,18 @@
-import Categories from '../components/Categories'
-import Header from '../components/Header'
+import Header from '../components/Header';
+import Orders from '../components/Orders';
+import { useState, useEffect } from 'react';
 
 
-export default function Home() {
+const menu = () => {
+  
   return (
-    <div>
-      <Header />
-      <Categories />
-    </div>
+      <div>
+          <Header />
+          <div className="container">
+              <Orders />
+          </div>
+      </div>
   )
 }
+
+export default menu;
