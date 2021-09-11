@@ -6,7 +6,7 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <div className="container header">
+    <div className="container move">
       <div className="navbar">
         <div className="logo">
           <img className="logo-img" src="images/buzzer-logo.svg" alt="Logo" />

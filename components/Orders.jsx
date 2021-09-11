@@ -4,6 +4,7 @@ import { customersOrders } from '../orders';
 const Orders = () => {
 
     const [orders, setOrders] = useState();
+    const [selected, setSelected] = useState(null);
 
     useEffect( async () => {
 
@@ -17,15 +18,12 @@ const Orders = () => {
         setOrders(data);
       }, []);
 
-    const [selected, setSelected] = useState(null);
-
     const toggle = (i) => {
         if(selected === i){
             return setSelected(null);
         }
 
         setSelected(i);
-        console.log(selected);
     }
 
     const numberWithCommas = (x) => {
@@ -57,6 +55,14 @@ const Orders = () => {
         return newPhone;
     }
 
+    const notifyUser = (id) => {
+        console.log(`${id} notified`);
+    }
+
+    const deleteOrder = (id) => {
+        console.log(`${id} deleted`);
+    }
+
     return (
         <div className="wrapper">
             <div className="order-list-header">
@@ -83,8 +89,8 @@ const Orders = () => {
                                         <div>{order.phone}</div>
                                     </div>
                                     <div className="action">
-                                        <button className={order.notified ? "action-btn notify-btn notified":"action-btn notify-btn"}>Notify</button>
-                                        <button className="action-btn delete-btn">Delete</button>
+                                        <button onClick={() => notifyUser(order.id)} className={order.notified ? "action-btn notify-btn notified":"action-btn notify-btn"}>Notify</button>
+                                        <button onClick={() => deleteOrder(order.id)} className="action-btn delete-btn">Delete</button>
                                     </div>
                                 </div>
                                 <div className="order-items-list">
@@ -98,8 +104,8 @@ const Orders = () => {
                                             <div className="quantity">Quantity</div>
                                             <div className="price">Price</div>
                                         </div>
-                                        {order.orderItems?.map((item) => (
-                                            <div className="order-items-list-table-row">
+                                        {order.orderItems?.map((item, i) => (
+                                            <div className="order-items-list-table-row" key={i}>
                                                 <div className="name">{item.name}</div>
                                                 <div className="quantity">{item.amount}</div>
                                                 <div className="price">{`${numberWithCommas(item.price)} IQD`}</div>
@@ -108,8 +114,7 @@ const Orders = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                )
+                        </div> )
                 )) : (
                     <div className="loading">
                         <h1>Loading ...</h1>
@@ -121,18 +126,3 @@ const Orders = () => {
 };
 
 export default Orders;
-
-const data = [
-    {
-        title: "hello world 1",
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat labore assumenda a soluta aspernatur tenetur est cupiditate recusandae, consequuntur dolorem! Exercitationem, rerum praesentium ratione recusandae nobis dolore sit laboriosam ad?`
-    },
-    {
-        title: "hello world 2",
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat labore assumenda a soluta aspernatur tenetur est cupiditate recusandae, consequuntur dolorem! Exercitationem, rerum praesentium ratione recusandae nobis dolore sit laboriosam ad?`
-    },
-    {
-        title: "hello world 3",
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat labore assumenda a soluta aspernatur tenetur est cupiditate recusandae, consequuntur dolorem! Exercitationem, rerum praesentium ratione recusandae nobis dolore sit laboriosam ad? `
-    },
-]

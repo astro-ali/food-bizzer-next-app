@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import useStore from "../store";
 
-const Item = ({ item }) => {
+const Item = ({ item, selected, toggleSelected, id }) => {
 
-    const [toggleShow, setToggleShow] = useState(false);
-    const addOrderItem = useStore((state) => state.addOrderItem);
+    const { orderItems, addOrderItem, emptyOrderItems, deleteOrderItem } = useStore();
 
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -33,8 +32,8 @@ const Item = ({ item }) => {
         return;
     }
 
-    const toggleDropDown = () => {
-        setToggleShow(!toggleShow);
+    const toggleDropDown = (id) => {
+        toggleSelected(id);
     }
 
     const addToCart = () => {
@@ -46,12 +45,12 @@ const Item = ({ item }) => {
     }
 
     return (
-        <div className={`food${toggleShow ? " food-show":""}`}>
-            <button onClick={() => toggleDropDown()} className="food-item">
+        <div className={`food${selected == id ? " food-show":""}`}>
+            <button onClick={() => toggleDropDown(id)} className="food-item">
                 <div className="food-item-name">{item.itemName}</div>
                 <div className="food-item-price">{`${numberWithCommas(item.itemPrice)} IQD`}</div>
             </button>
-            <div className={`dropdown-box${toggleShow ? "":" hide"}`}>
+            <div className={`dropdown-box${selected == id ? "":" hide"}`}>
                 <div className="counter">
                     <button onClick={() => increament()} className="counter-item counter-btn">+</button>
                     <input className="counter-item counter-box" onChange={handleChange} type="text" value={1} ref={input_value}/>

@@ -1,6 +1,6 @@
 import Category from "./Category";
 import { items } from "../items";  //fake data
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Meals from './Meals';
 
 const Categories = () => {
@@ -14,7 +14,7 @@ const Categories = () => {
 
     return (
         <>
-            <div className="container categories">
+            <div className="container move categories">
                 {!!categories ? (
                     categories['foodCategories']?.map((categ) => (
                         <Category
