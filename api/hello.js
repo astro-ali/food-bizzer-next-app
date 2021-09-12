@@ -1,9 +1,8 @@
 export const URL = "http://localhost:5000/v1";
 
-// save order post request
-
+// save order request
 export const apiSaveOrder = (data, callback) => {
-  console.log(data);
+
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -27,4 +26,20 @@ export const apiSaveOrder = (data, callback) => {
 
 // delete prder / delete request
 
-// sending SMS request / post request
+
+// sending SMS request
+export const apiSendSMS = (phone, callback) => {
+
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+
+  fetch(`${URL}/customers/${phone}`, requestOptions)
+    .then(response => response.json())
+    .then((result) => {
+      if(result.status) return callback(result, null);
+      callback(null, result.errMsg);
+    })
+    .catch(error => console.log('error', error));
+}

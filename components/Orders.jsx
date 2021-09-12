@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { URL } from '../api/hello';
 import Popup from './Popup';
+import { apiSendSMS } from '../api/hello';
 
 const Orders = () => {
 
@@ -33,7 +34,8 @@ const Orders = () => {
     }
 
     const calculateTotalCost = (id) => {
-        let Items = orders.customers[id-1].orderItem;
+        console.log(orders.customers);
+        let Items = orders.customers[id].orderItem;
         let totalCost = 0;
         for (const item of Items) {
             let result = parseInt(item.price) * parseInt(item.amount);
@@ -42,8 +44,12 @@ const Orders = () => {
         return totalCost;
     }
 
-    const notifyUser = (id) => {
-        console.log(`${id} notified`);
+    const notifyUser = (phone) => {
+        apiSendSMS(phone, (data, error) => {
+            if(error) return alert("Failed to sending SMS notification");
+            console.log(data);
+            return alert("SMS sent successfully");
+        });
     }
 
     const deleteOrder = (id) => {
@@ -85,15 +91,15 @@ const Orders = () => {
                                 <div className="order-details">
                                     <div className="total-cost">
                                         <div className="total-cost-title">Total cost</div>
-                                        <div>{`${numberWithCommas(calculateTotalCost(order.CustomerId))} IQD`}</div>
+                                        <div>{`${numberWithCommas(calculateTotalCost(i))} IQD`}</div>
                                     </div>
                                     <div className="phone-number">
                                         <div className="phone-number-title">Phone number</div>
                                         <div>{order.phone}</div>
                                     </div>
                                     <div className="action">
-                                        <button onClick={() => notifyUser(order.CustomerId)} className={order.notified? "action-btn notify-btn notified":"action-btn notify-btn"}>Notify</button>
-                                        <button onClick={() => deleteOrder(order.CustomerId)} className="action-btn delete-btn">Delete</button>
+                                        <button onClick={() => notifyUser(order.phone)} className={order.notified? "action-btn notify-btn notified":"action-btn notify-btn"}>Notify</button>
+                                        <button onClick={() => deleteOrder("07801989429")} className="action-btn delete-btn">Delete</button>
                                     </div>
                                 </div>
                                 <div className="order-items-list">
