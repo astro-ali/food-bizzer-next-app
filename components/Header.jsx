@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import useStore from "../store";
 
 const Header = () => {
 
   const router = useRouter();
+  const { orderItems, addOrderItem, emptyOrderItems, deleteOrderItem } = useStore();
 
   return (
-    <div className="container move">
+    <div className={`container${router.pathname == "/menu" && orderItems.length != 0 ? " move":""}`}>
       <div className="navbar">
         <div className="logo">
           <img className="logo-img" src="images/buzzer-logo.svg" alt="Logo" />

@@ -15,7 +15,7 @@ const Item = ({ item, selected, toggleSelected, id }) => {
     const increament = () => {
         input_value.current.value = parseInt(input_value.current.value) + 1;
         let counter = input_value.current.value;
-        let new_total_price = `${numberWithCommas(item.itemPrice * counter)} IQD`;
+        let new_total_price = `${numberWithCommas(item.foodPrice * counter)} IQD`;
         total_price.current.innerHTML = new_total_price;
     }
 
@@ -23,7 +23,7 @@ const Item = ({ item, selected, toggleSelected, id }) => {
         if(input_value.current.value == 1) return
         input_value.current.value = parseInt(input_value.current.value) - 1;
         let counter = input_value.current.value;
-        let new_total_price = `${numberWithCommas(item.itemPrice * counter)} IQD`;
+        let new_total_price = `${numberWithCommas(item.foodPrice * counter)} IQD`;
         total_price.current.innerHTML = new_total_price;
     }
 
@@ -38,8 +38,8 @@ const Item = ({ item, selected, toggleSelected, id }) => {
 
     const addToCart = () => {
         addOrderItem({
-            itemName: item.itemName,
-            itemPrice: item.itemPrice,
+            itemName: item.foodName,
+            itemPrice: item.foodPrice,
             amount: parseInt(input_value.current.value)
         });
     }
@@ -47,8 +47,8 @@ const Item = ({ item, selected, toggleSelected, id }) => {
     return (
         <div className={`food${selected == id ? " food-show":""}`}>
             <button onClick={() => toggleDropDown(id)} className="food-item">
-                <div className="food-item-name">{item.itemName}</div>
-                <div className="food-item-price">{`${numberWithCommas(item.itemPrice)} IQD`}</div>
+                <div className="food-item-name">{item.foodName}</div>
+                <div className="food-item-price">{`${numberWithCommas(item.foodPrice)} IQD`}</div>
             </button>
             <div className={`dropdown-box${selected == id ? "":" hide"}`}>
                 <div className="counter">
@@ -57,7 +57,7 @@ const Item = ({ item, selected, toggleSelected, id }) => {
                     <button onClick={() => decreament()} className="counter-item counter-btn">-</button>
                 </div>
                     <div ref={total_price} className="total-price">
-                        {`${numberWithCommas(item.itemPrice)} IQD`}
+                        {`${numberWithCommas(item.foodPrice)} IQD`}
                     </div>
                 <div className="add-to-cart">
                     <button onClick={() => addToCart()} className="add-to-cart-btn">Add</button>

@@ -25,13 +25,12 @@ h1 {
 .container {
   width: 1000px;
   margin: auto;
-  transition: all 0.5s ease;
+  transition: all 0.5s ease-in-out;
 }
 
 .container.move {
   margin-right: 550px;
   margin-left: auto;
-  transition: all 0.5s ease;
 }
 
 .navbar {
@@ -521,8 +520,8 @@ h1 {
   width: 500px;
   height: 100vh;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
-  transition: all .35s ease-in-out;
   overflow-y: auto;
+  transition: all .35s ease-in-out;
 
   &-container {
     padding: 0 24px;
@@ -586,6 +585,7 @@ h1 {
   &-name {
     font-size: 18px;
     font-weight: 400;
+    width: 170px;
   }
 
   &-details {

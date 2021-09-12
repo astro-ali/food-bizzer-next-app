@@ -4,7 +4,7 @@ const Category = ({ category, changeCategory, currentCategory }) => {
 
     return (
         <div className="category">
-            <button onClick={() => changeCategory(category.categoryId)} className={`category-btn${clicked}`} >{category.categoryName}</button>
+            <button onClick={() => changeCategory(category.categoryId)} className={`category-btn${clicked}`} >{!!category ? category.categoryName : "Loading..."}</button>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { customersOrders } from '../orders';
+import { URL } from '../api/hello';
 
 const Orders = () => {
 
@@ -13,7 +13,7 @@ const Orders = () => {
           redirect: "follow",
         };
     
-        const res = await fetch("https://jsonplaceholder.typicode.com/users", requestOptions);
+        const res = await fetch(`${URL}/orders`, requestOptions);
         const data = await res.json();
         setOrders(data);
       }, []);
@@ -22,7 +22,6 @@ const Orders = () => {
         if(selected === i){
             return setSelected(null);
         }
-
         setSelected(i);
     }
 
@@ -31,7 +30,7 @@ const Orders = () => {
     }
 
     const calculateTotalCost = (id) => {
-        let Items = customersOrders[id-1].orderItems;
+        let Items = orders.customers[id-1].orderItem;
         let totalCost = 0;
         for (const item of Items) {
             let result = parseInt(item.price) * parseInt(item.amount);
@@ -67,36 +66,36 @@ const Orders = () => {
         <div className="wrapper">
             <div className="order-list-header">
                 <h2 className="order-list-name">All Orders</h2>
-                <p className="order-list-amount">{orders ? `${customersOrders.length} orders`: "none"}</p>
+                <p className="order-list-amount">{!!orders ? `${orders.customers.length} orders`: "none"}</p>
             </div>
             <div className="accordion">
                 {!!orders ? (
-                    customersOrders?.map((order, i) => (
+                    orders.customers?.map((order, i) => (
                         <div className="item" key={i}>
                             <div className="item-title" onClick={() => toggle(i)}>
-                                <h2>{'#'+order.id+" order"}</h2>
-                                <p>{order.createdAt}</p>
+                                <h2>{'#'+(i+1)+" order"}</h2>
+                                <p>{order.CreatedAt}</p>
                                 <span className={selected == i ? "rotate":""}>+</span>
                             </div>
                             <div className={selected == i ? "item-content show":"item-content"}>
                                 <div className="order-details">
                                     <div className="total-cost">
                                         <div className="total-cost-title">Total cost</div>
-                                        <div>{`${numberWithCommas(calculateTotalCost(order.id))} IQD`}</div>
+                                        <div>{`${numberWithCommas(calculateTotalCost(order.CustomerId))} IQD`}</div>
                                     </div>
                                     <div className="phone-number">
                                         <div className="phone-number-title">Phone number</div>
                                         <div>{order.phone}</div>
                                     </div>
                                     <div className="action">
-                                        <button onClick={() => notifyUser(order.id)} className={order.notified ? "action-btn notify-btn notified":"action-btn notify-btn"}>Notify</button>
-                                        <button onClick={() => deleteOrder(order.id)} className="action-btn delete-btn">Delete</button>
+                                        <button onClick={() => notifyUser(order.CustomerId)} className={order.notified? "action-btn notify-btn notified":"action-btn notify-btn"}>Notify</button>
+                                        <button onClick={() => deleteOrder(order.CustomerId)} className="action-btn delete-btn">Delete</button>
                                     </div>
                                 </div>
                                 <div className="order-items-list">
                                     <div className="order-items-list-header">
                                         <div className="order-items-list-name">Order Items</div>
-                                        <div className="order-items-list-length">{order.orderItems.length + " items"}</div>
+                                        <div className="order-items-list-length">{order.orderItem.length + " items"}</div>
                                     </div>
                                     <div className="order-items-list-table">
                                         <div className="order-items-list-table-row first-row">
@@ -104,7 +103,7 @@ const Orders = () => {
                                             <div className="quantity">Quantity</div>
                                             <div className="price">Price</div>
                                         </div>
-                                        {order.orderItems?.map((item, i) => (
+                                        {order.orderItem?.map((item, i) => (
                                             <div className="order-items-list-table-row" key={i}>
                                                 <div className="name">{item.name}</div>
                                                 <div className="quantity">{item.amount}</div>

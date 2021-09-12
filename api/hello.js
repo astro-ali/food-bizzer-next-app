@@ -1,5 +1,7 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+export const URL = "http://localhost:5000/v1";
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
-}
+// save order post request
+
+// delete prder / delete request
+
+// sending SMS request / post request
