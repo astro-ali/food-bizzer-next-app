@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { URL } from '../api/hello';
+import Popup from './Popup';
 
 const Orders = () => {
 
     const [orders, setOrders] = useState();
     const [selected, setSelected] = useState(null);
+    const [togglePopup, setTogglePopup] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
 
     useEffect( async () => {
 
@@ -39,27 +42,28 @@ const Orders = () => {
         return totalCost;
     }
 
-    const hidePhoneNumber = (phone) => {
-        let newPhone = "";
-        phone = phone.split('');
-        for(const i in phone){
-            if( i > 3 && i < 8){
-                newPhone = newPhone + phone[i];
-            }
-            else {
-                newPhone = newPhone + phone[i];
-            }
-
-        }
-        return newPhone;
-    }
-
     const notifyUser = (id) => {
         console.log(`${id} notified`);
     }
 
     const deleteOrder = (id) => {
-        console.log(`${id} deleted`);
+        setTogglePopup(true);
+        setDeleteId(id);
+    }
+
+    const confirmDeleteOrder = () => {
+        console.log(deleteId);
+        setTogglePopup(false);
+    }
+
+    const calculateWaitingTime = (orderTime) => {
+        let date2 = new Date(orderTime);
+        let now = new Date(); // now time
+        let time = date2.getTime();
+        let now_time = now.getTime();
+        let wait = new Date(now_time - time);
+        if(wait.getHours() == 0) return `waiting ${wait.getMinutes()}m`;
+        return `waiting ${wait.getHours()}h ${wait.getMinutes()}m`;
     }
 
     return (
@@ -74,7 +78,7 @@ const Orders = () => {
                         <div className="item" key={i}>
                             <div className="item-title" onClick={() => toggle(i)}>
                                 <h2>{'#'+(i+1)+" order"}</h2>
-                                <p>{order.CreatedAt}</p>
+                                <p>{calculateWaitingTime(order.CreatedAt)}</p>
                                 <span className={selected == i ? "rotate":""}>+</span>
                             </div>
                             <div className={selected == i ? "item-content show":"item-content"}>
@@ -119,7 +123,14 @@ const Orders = () => {
                         <h1>Loading ...</h1>
                     </div>
                 )}
-            </div>
+            </div> 
+            <Popup trigger={togglePopup} setClose={setTogglePopup}> 
+                <h4 className="confirm-message">Are you sure you want to delete this order?</h4>
+                <div className="user-answer">
+                    <div onClick={() => confirmDeleteOrder()} className="confirm-btn">Yes</div>
+                    <div onClick={() => setTogglePopup(false)} className="cancel-btn">No</div>
+                </div>
+            </Popup>
         </div>
     );
 };

@@ -41,6 +41,7 @@ const AddNewOrder = () => {
 
         input_name.current.value = '';
         input_phone.current.value = '';
+        emptyOrderItems();
         console.log(new_order);
     }
 
