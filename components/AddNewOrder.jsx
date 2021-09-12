@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import useStore from "../store";
+import { apiSaveOrder } from '../api/hello';
 
 const AddNewOrder = () => {
 
@@ -16,7 +17,7 @@ const AddNewOrder = () => {
         for (const item of list) {
             total_cost += parseInt(item.amount) * parseInt(item.itemPrice);
         }
-        return total_cost;
+        return total_cost.toString();
     }
 
     const handleName = (e) => {
@@ -30,19 +31,32 @@ const AddNewOrder = () => {
     const saveOrder = () => {
 
         if(input_name.current.value == '') return alert("Name field is empty");
-        if(input_phone.current.value == '') return alert("Phone number field is empty");
 
-        let new_order = {
-            name: customerName,
-            phone: phoneNumber,
-            totalCost: calculateTotalCost(orderItems),
-            orderItems: [...orderItems]
+        let new_order_item = [];
+        for (const item of orderItems) {
+            let new_item = {
+                name: item.itemName,
+                price: item.itemPrice,
+                amount: item.amount
+            }
+            new_order_item.push(new_item);
         }
 
-        input_name.current.value = '';
-        input_phone.current.value = '';
-        emptyOrderItems();
-        console.log(new_order);
+        let new_order = {
+            CustomerName: customerName,
+            phone: phoneNumber,
+            total_cost: calculateTotalCost(orderItems),
+            orderItem: [...new_order_item]
+        }
+
+        apiSaveOrder(new_order, (data, error) => {
+            if(error) return alert("Something went wrong");
+            console.log(data);
+            input_name.current.value = '';
+            input_phone.current.value = '';
+            emptyOrderItems();
+        });
+
     }
 
     const numberWithCommas = (x) => {
