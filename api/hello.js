@@ -1,4 +1,5 @@
-export const URL = "http://localhost:5000/v1";
+export const URL = "https://buzzer-node.herokuapp.com/v1";
+
 
 // save order request
 export const apiSaveOrder = (data, callback) => {
