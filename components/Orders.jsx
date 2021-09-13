@@ -33,9 +33,6 @@ const Orders = () => {
         setSelected(i);
     }
 
-    const sortwithDate = (list) => {
-        
-    }
 
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -54,7 +51,10 @@ const Orders = () => {
 
     const notifyUser = (phone) => {
         apiSendSMS(phone, (data, error) => {
-            if(error) return alert("Failed to sending SMS notification");
+            if(error){
+                console.log(error);
+                return alert("Failed to sending SMS notification");
+            }
             console.log(data);
             return alert("SMS sent successfully");
         });
