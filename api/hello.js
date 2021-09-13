@@ -25,6 +25,24 @@ export const apiSaveOrder = (data, callback) => {
 };
 
 // delete prder / delete request
+  export const apiDeleteOrder = (id, callback) => {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var requestOptions = {
+    method: 'DELETE',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  fetch(`${URL}/customers/${id}`, requestOptions)
+    .then(response => response.json())
+    .then((result) => {
+      if(result.status) return callback(result, null);
+      callback(null, result.errMsg);
+    })
+    .catch(error => console.log('error', error));
+}
 
 
 // sending SMS request

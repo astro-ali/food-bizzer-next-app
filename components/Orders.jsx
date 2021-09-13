@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { URL } from '../api/hello';
 import Popup from './Popup';
-import { apiSendSMS } from '../api/hello';
+import { apiSendSMS, apiDeleteOrder } from '../api/hello';
 
 const Orders = () => {
+
+    const router = useRouter();
 
     const [orders, setOrders] = useState();
     const [selected, setSelected] = useState(null);
@@ -19,6 +22,7 @@ const Orders = () => {
     
         const res = await fetch(`${URL}/orders`, requestOptions);
         const data = await res.json();
+
         setOrders(data);
       }, []);
 
@@ -27,6 +31,10 @@ const Orders = () => {
             return setSelected(null);
         }
         setSelected(i);
+    }
+
+    const sortwithDate = (list) => {
+        
     }
 
     const numberWithCommas = (x) => {
@@ -58,7 +66,12 @@ const Orders = () => {
     }
 
     const confirmDeleteOrder = () => {
-        console.log(deleteId);
+        apiDeleteOrder(deleteId, (res, error) => {
+            if(error) return alert("Failed to delete this order");
+            console.log(res);
+            console.log(`${deleteId} got deleted`);
+            router.reload();
+        })
         setTogglePopup(false);
     }
 
@@ -67,7 +80,7 @@ const Orders = () => {
         let now = new Date(); // now time
         let time = date2.getTime();
         let now_time = now.getTime();
-        let wait = new Date(now_time - time);
+        let wait = new Date((now_time - time) - 6 * 60 * 60 * 1000);
         if(wait.getHours() == 0) return `waiting ${wait.getMinutes()}m`;
         return `waiting ${wait.getHours()}h ${wait.getMinutes()}m`;
     }
@@ -83,7 +96,7 @@ const Orders = () => {
                     orders.customers?.map((order, i) => (
                         <div className="item" key={i}>
                             <div className="item-title" onClick={() => toggle(i)}>
-                                <h2>{'#'+(i+1)+" order"}</h2>
+                                <h2>{'#'+(i+1)+" "+ order.CustomerName}</h2>
                                 <p>{calculateWaitingTime(order.CreatedAt)}</p>
                                 <span className={selected == i ? "rotate":""}>+</span>
                             </div>
@@ -99,7 +112,7 @@ const Orders = () => {
                                     </div>
                                     <div className="action">
                                         <button onClick={() => notifyUser(order.phone)} className={order.notified? "action-btn notify-btn notified":"action-btn notify-btn"}>Notify</button>
-                                        <button onClick={() => deleteOrder("07801989429")} className="action-btn delete-btn">Delete</button>
+                                        <button onClick={() => deleteOrder(order.CustomerId)} className="action-btn delete-btn">Delete</button>
                                     </div>
                                 </div>
                                 <div className="order-items-list">
